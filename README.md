@@ -1,4 +1,4 @@
-cardwar
+War
 =======
 
 War Card Came in Python
