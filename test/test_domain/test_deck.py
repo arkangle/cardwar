@@ -14,6 +14,13 @@ class TestDeck(unittest.TestCase):
         deck.addCard(Card(2))
         deck.addCard(Card(3))
         self.assertEqual(deck.getCards(),[Card(1),Card(2),Card(3)])
+    def testHasCards(self):
+        deck = Deck()
+        self.assertFalse(deck.hasCards())
+        deck.addCard(Card(1))
+        self.assertTrue(deck.hasCards())
+        deck.nextCard()
+        self.assertFalse(deck.hasCards())
     def testNextCard(self):
         deck = Deck()
         cards = deck.getCards()
@@ -36,4 +43,3 @@ class TestDeck(unittest.TestCase):
             for e in range(1,5):
                 self.assertEqual(cards[i].value,c)
                 i += 1
-

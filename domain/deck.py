@@ -1,5 +1,4 @@
 from domain.card import Card
-import random
 
 class Deck:
     @staticmethod
@@ -17,6 +16,8 @@ class Deck:
         return self.cards
     def nextCard(self):
         return self.cards.pop(0)
-    def shuffle(self):
-        random.suffle(self.cards)
+    def hasCards(self):
+        return len(self.cards) > 0
 
+class Hand(Deck):
+    pass
