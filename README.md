@@ -1,4 +1,5 @@
-War
+War Card Game
 =======
 
-War Card Came in Python
+War Card Came in Go
+TDD
