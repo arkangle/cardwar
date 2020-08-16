@@ -9,7 +9,6 @@ import (
 // Deck structure
 type Deck struct {
 	Cards []Card
-	Index int
 }
 
 // NewDeck creates Deck with cards
@@ -32,17 +31,22 @@ func (d *Deck) Shuffle() {
 	rand.Shuffle(len(d.Cards), func(i, j int) { d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i] })
 }
 
-// DealCard will advance index and return it, maybe error
-func (d *Deck) DealCard() (Card, error) {
-	if d.Index == d.count() {
+// Deal will advance index and return it, maybe error
+func (d *Deck) Deal() (Card, error) {
+	if d.Count() == 0 {
 		return Card{}, fmt.Errorf("No More Cards")
 	}
-	card := d.Cards[d.Index]
-	d.Index++
-
+	card := d.Cards[0]
+	d.Cards = d.Cards[1:]
 	return card, nil
 }
 
-func (d Deck) count() int {
+// Count will count cards
+func (d Deck) Count() int {
 	return len(d.Cards)
+}
+
+// Add adds card to deck
+func (d *Deck) Add(card Card) {
+	d.Cards = append(d.Cards, card)
 }
