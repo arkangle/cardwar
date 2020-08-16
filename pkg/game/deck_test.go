@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNewDeck(t *testing.T) {
-	deck := NewDeck()
+func TestNewFullDeck(t *testing.T) {
+	deck := NewFullDeck()
 	assert.Equal(t, 44, len(deck.Cards))
 }
 

@@ -11,8 +11,8 @@ type Deck struct {
 	Cards []Card
 }
 
-// NewDeck creates Deck with cards
-func NewDeck() Deck {
+// NewFullDeck creates Deck with cards
+func NewFullDeck() Deck {
 	cards := []Card{}
 	for num := 1; num < 12; num++ {
 		for count := 0; count < 4; count++ {
