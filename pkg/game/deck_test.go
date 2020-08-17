@@ -18,7 +18,7 @@ func TestShuffle(t *testing.T) {
 	assert.Equal(t, 4, len(deck.Cards))
 }
 
-func TestValidDeal(t *testing.T) {
+func TestValidNext(t *testing.T) {
 	deck := Deck{Cards: []Card{{1}, {3}, {4}, {2}}}
 	var tests = []struct {
 		count int8
@@ -29,17 +29,17 @@ func TestValidDeal(t *testing.T) {
 		{2},
 	}
 	for _, test := range tests {
-		card, _ := deck.Deal()
+		card, _ := deck.Next()
 		assert.Equal(t, test.count, card.Value)
 	}
 }
 
-func TestInvalidDeal(t *testing.T) {
+func TestInvalidNext(t *testing.T) {
 	deck := Deck{Cards: []Card{{1}}}
-	card, noerr := deck.Deal()
+	card, noerr := deck.Next()
 	assert.Equal(t, card.Value, int8(1))
 	assert.Equal(t, nil, noerr)
-	_, err := deck.Deal()
+	_, err := deck.Next()
 	expectedErr := fmt.Errorf("No More Cards")
 	assert.Equal(t, expectedErr, err)
 }

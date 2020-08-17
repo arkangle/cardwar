@@ -21,7 +21,7 @@ func (d *Dealer) Shuffle() {
 
 // Deal will deal out deck
 func (d *Dealer) Deal() {
-	for card, err := d.Deck.Deal(); err == nil; card, err = d.Deck.Deal() {
+	for card, err := d.Deck.Next(); err == nil; card, err = d.Deck.Next() {
 		d.Players.Next().Hand.Add(card)
 	}
 }

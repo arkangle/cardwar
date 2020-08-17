@@ -8,5 +8,8 @@ type Player struct {
 
 // NewPlayer creates new Player
 func NewPlayer(name string) Player {
-	return Player{Name: name}
+	return Player{
+		Name: name,
+		Hand: Deck{},
+	}
 }

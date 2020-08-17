@@ -27,5 +27,5 @@ func main() {
 	dealer := game.NewDealer(players, deck)
 	dealer.Shuffle()
 	dealer.Deal()
-	fmt.Print(players)
+	fmt.Printf("%+v\n", dealer)
 }

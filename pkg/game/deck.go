@@ -31,8 +31,8 @@ func (d *Deck) Shuffle() {
 	rand.Shuffle(len(d.Cards), func(i, j int) { d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i] })
 }
 
-// Deal will advance index and return it, maybe error
-func (d *Deck) Deal() (Card, error) {
+// Next will advance index and return it, maybe error
+func (d *Deck) Next() (Card, error) {
 	if d.Count() == 0 {
 		return Card{}, fmt.Errorf("No More Cards")
 	}
