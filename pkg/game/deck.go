@@ -6,6 +6,14 @@ import (
 	"time"
 )
 
+// IDeck interface for Deck
+type IDeck interface {
+	Shuffle()
+	Next() (Card, error)
+	Count() int
+	Add(Card)
+}
+
 // Deck structure
 type Deck struct {
 	Cards []Card

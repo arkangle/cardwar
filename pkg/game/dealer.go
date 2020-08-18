@@ -2,12 +2,12 @@ package game
 
 // Dealer structure
 type Dealer struct {
-	Deck    Deck
-	Players PlayerCollection
+	Deck    IDeck
+	Players IPlayerCollection
 }
 
 // NewDealer creates a dealer
-func NewDealer(players PlayerCollection, deck Deck) Dealer {
+func NewDealer(players IPlayerCollection, deck IDeck) Dealer {
 	return Dealer{
 		Deck:    deck,
 		Players: players,
@@ -21,7 +21,8 @@ func (d *Dealer) Shuffle() {
 
 // Deal will deal out deck
 func (d *Dealer) Deal() {
-	for card, err := d.Deck.Next(); err == nil; card, err = d.Deck.Next() {
+	for i := 0; i < d.Deck.Count(); i++ {
+		card, _ := d.Deck.Next()
 		d.Players.Next().Hand.Add(card)
 	}
 }

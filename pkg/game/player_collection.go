@@ -1,5 +1,11 @@
 package game
 
+// IPlayerCollection interface
+type IPlayerCollection interface {
+	Count() int
+	Next() *Player
+}
+
 // PlayerCollection structure
 type PlayerCollection struct {
 	Players      []Player

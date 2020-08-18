@@ -7,6 +7,40 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+type MockDeck struct {
+	Tracker map[string]int
+	Length  int
+}
+
+func NewMockDeck(length int) MockDeck {
+	return MockDeck{
+		Tracker: make(map[string]int),
+		Length:  length,
+	}
+}
+
+func (m *MockDeck) Shuffle() {
+	m.Tracker["Shuffle"]++
+}
+
+func (m *MockDeck) Count() int {
+	m.Tracker["Count"]++
+	return m.Length
+}
+
+func (m *MockDeck) Next() (card Card, err error) {
+	current := m.Tracker["Next"]
+	m.Tracker["Next"]++
+	if current < m.Length {
+		return Card{}, fmt.Errorf("No More Cards")
+	}
+	return Card{int8(current)}, nil
+}
+
+func (m *MockDeck) Add(card Card) {
+	m.Tracker["Add"]++
+}
+
 func TestNewFullDeck(t *testing.T) {
 	deck := NewFullDeck()
 	assert.Equal(t, 44, len(deck.Cards))

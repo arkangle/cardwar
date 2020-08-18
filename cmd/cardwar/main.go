@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/akamensky/argparse"
@@ -24,8 +23,7 @@ func main() {
 	}
 	players := game.NewPlayerCollection(*playerNames)
 	deck := game.NewFullDeck()
-	dealer := game.NewDealer(players, deck)
+	dealer := game.NewDealer(&players, &deck)
 	dealer.Shuffle()
 	dealer.Deal()
-	fmt.Printf("%+v\n", dealer)
 }
