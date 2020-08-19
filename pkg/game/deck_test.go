@@ -19,8 +19,8 @@ func NewMockDeck(length int) MockDeck {
 	}
 }
 
-func (m *MockDeck) Shuffle() {
-	m.Tracker["Shuffle"]++
+func (m *MockDeck) Swap(i, j int) {
+	m.Tracker["Swap"]++
 }
 
 func (m *MockDeck) Count() int {
@@ -34,7 +34,7 @@ func (m *MockDeck) Next() (card Card, err error) {
 	if current < m.Length {
 		return Card{}, fmt.Errorf("No More Cards")
 	}
-	return Card{int8(current)}, nil
+	return Card{current}, nil
 }
 
 func (m *MockDeck) Add(card Card) {
@@ -46,16 +46,22 @@ func TestNewFullDeck(t *testing.T) {
 	assert.Equal(t, 44, len(deck.Cards))
 }
 
-func TestShuffle(t *testing.T) {
+func TestSwap(t *testing.T) {
 	deck := Deck{Cards: []Card{{1}, {2}, {3}, {4}}}
-	deck.Shuffle()
-	assert.Equal(t, 4, len(deck.Cards))
+
+	assert.Equal(t, 2, deck.Cards[1].Value)
+	assert.Equal(t, 3, deck.Cards[2].Value)
+
+	deck.Swap(1, 2)
+
+	assert.Equal(t, 3, deck.Cards[1].Value)
+	assert.Equal(t, 2, deck.Cards[2].Value)
 }
 
 func TestValidNext(t *testing.T) {
 	deck := Deck{Cards: []Card{{1}, {3}, {4}, {2}}}
 	var tests = []struct {
-		count int8
+		count int
 	}{
 		{1},
 		{3},
@@ -71,7 +77,7 @@ func TestValidNext(t *testing.T) {
 func TestInvalidNext(t *testing.T) {
 	deck := Deck{Cards: []Card{{1}}}
 	card, noerr := deck.Next()
-	assert.Equal(t, card.Value, int8(1))
+	assert.Equal(t, card.Value, 1)
 	assert.Equal(t, nil, noerr)
 	_, err := deck.Next()
 	expectedErr := fmt.Errorf("No More Cards")
@@ -80,7 +86,7 @@ func TestInvalidNext(t *testing.T) {
 
 func TestCount(t *testing.T) {
 	var tests = []struct {
-		count int8
+		count int
 	}{
 		{0},
 		{1},
@@ -88,7 +94,7 @@ func TestCount(t *testing.T) {
 	}
 	for _, test := range tests {
 		deck := Deck{}
-		for i := int8(0); i < test.count; i++ {
+		for i := 0; i < test.count; i++ {
 			deck.Cards = append(deck.Cards, Card{})
 		}
 		assert.Equal(t, int(test.count), deck.Count())
@@ -98,7 +104,7 @@ func TestCount(t *testing.T) {
 func TestAdd(t *testing.T) {
 	deck := Deck{}
 	var tests = []struct {
-		count int8
+		count int
 	}{
 		{1},
 		{2},

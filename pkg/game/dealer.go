@@ -1,28 +1,30 @@
 package game
 
+import (
+	"math/rand"
+	"time"
+)
+
 // Dealer structure
-type Dealer struct {
-	Deck    IDeck
-	Players IPlayerCollection
-}
+type Dealer struct{}
 
 // NewDealer creates a dealer
-func NewDealer(players IPlayerCollection, deck IDeck) Dealer {
-	return Dealer{
-		Deck:    deck,
-		Players: players,
-	}
+func NewDealer() Dealer {
+	return Dealer{}
 }
 
 // Shuffle will shuffle deck
-func (d *Dealer) Shuffle() {
-	d.Deck.Shuffle()
+func (d Dealer) Shuffle(deck IDeck) {
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(deck.Count(), func(i, j int) {
+		deck.Swap(i, j)
+	})
 }
 
 // Deal will deal out deck
-func (d *Dealer) Deal() {
-	for i := 0; i < d.Deck.Count(); i++ {
-		card, _ := d.Deck.Next()
-		d.Players.Next().Hand.Add(card)
+func (d *Dealer) Deal(deck IDeck, players IPlayerCollection) {
+	for i := 0; i < deck.Count(); i++ {
+		card, _ := deck.Next()
+		players.Next().Hand.Add(card)
 	}
 }

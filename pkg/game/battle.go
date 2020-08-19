@@ -4,12 +4,12 @@ import "fmt"
 
 // Battle structure
 type Battle struct {
-	Players []Player
+	Players IPlayerCollection
 }
 
 // NewBattle creates new Battle
-func NewBattle(players []Player) (Battle, error) {
-	if len(players) < 2 {
+func NewBattle(players IPlayerCollection) (Battle, error) {
+	if players.Count() < 2 {
 		err := fmt.Errorf("Must have at least 2 players")
 		return Battle{}, err
 	}

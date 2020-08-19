@@ -10,7 +10,7 @@ import (
 func TestValidNewCard(t *testing.T) {
 	var tests = []struct {
 		given int
-		value int8
+		value int
 	}{
 		{1, 1},
 		{6, 6},
@@ -25,7 +25,7 @@ func TestValidNewCard(t *testing.T) {
 func TestInvalidNewCard(t *testing.T) {
 	var tests = []struct {
 		given int
-		value int8
+		value int
 	}{
 		{0, 0},
 		{12, 12},

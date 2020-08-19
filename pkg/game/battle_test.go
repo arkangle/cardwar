@@ -7,20 +7,17 @@ import (
 )
 
 func TestValidNewBattle(t *testing.T) {
-	players := []Player{
-		Player{Name: "Player1"},
-		Player{Name: "Player2"},
-	}
-	battle, err := NewBattle(players)
-	assert.Equal(t, battle.Players[0].Name, "Player1")
-	assert.Equal(t, battle.Players[1].Name, "Player2")
+	playerNames := []string{"Player1", "Player2"}
+	players := NewPlayerCollection(playerNames)
+	battle, err := NewBattle(&players)
+	assert.Equal(t, battle.Players.Next().Name, playerNames[0])
+	assert.Equal(t, battle.Players.Next().Name, playerNames[1])
 	assert.Equal(t, err, nil)
 }
 
 func TestInvalidNewBattle(t *testing.T) {
-	players := []Player{
-		Player{Name: "Player1"},
-	}
-	_, err := NewBattle(players)
+	playerNames := []string{"Player1"}
+	players := NewPlayerCollection(playerNames)
+	_, err := NewBattle(&players)
 	assert.EqualError(t, err, "Must have at least 2 players")
 }

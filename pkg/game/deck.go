@@ -2,13 +2,11 @@ package game
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 )
 
 // IDeck interface for Deck
 type IDeck interface {
-	Shuffle()
+	Swap(int, int)
 	Next() (Card, error)
 	Count() int
 	Add(Card)
@@ -33,12 +31,6 @@ func NewFullDeck() Deck {
 	}
 }
 
-// Shuffle will return shuffled deck
-func (d *Deck) Shuffle() {
-	rand.Seed(time.Now().UnixNano())
-	rand.Shuffle(len(d.Cards), func(i, j int) { d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i] })
-}
-
 // Next will advance index and return it, maybe error
 func (d *Deck) Next() (Card, error) {
 	if d.Count() == 0 {
@@ -49,12 +41,17 @@ func (d *Deck) Next() (Card, error) {
 	return card, nil
 }
 
-// Count will count cards
+// Count cards
 func (d Deck) Count() int {
 	return len(d.Cards)
 }
 
-// Add adds card to deck
+// Add card to deck
 func (d *Deck) Add(card Card) {
 	d.Cards = append(d.Cards, card)
+}
+
+// Swap cards
+func (d *Deck) Swap(i, j int) {
+	d.Cards[i], d.Cards[j] = d.Cards[j], d.Cards[i]
 }
